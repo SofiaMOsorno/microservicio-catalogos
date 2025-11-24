@@ -14,7 +14,7 @@ Microservicio para gestión de catálogos: Clientes, Domicilios y Productos.
 
 - Node.js 20+
 - AWS CLI configurado con credenciales
-- DynamoDB con las tablas: `Clientes`, `Domicilios`, `Productos`
+- DynamoDB con las tablas: Clientes, Domicilios, Productos
 
 ## Instalación
 ```bash
