@@ -17,6 +17,13 @@ app.use('/api/clientes', clientesRoutes);
 app.use('/api/domicilios', domiciliosRoutes);
 app.use('/api/productos', productosRoutes);
 
+app.get('/test', (req, res) => {
+    res.status(500).json({ 
+        error: 'Error forzado para prueba de alarma',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/health', (req, res) => {
     res.json({ 
         status: 'UP',
