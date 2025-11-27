@@ -30,21 +30,30 @@ export class MetricsService {
     }
 
     async registrarTiempoEjecucion(ruta: string, duracionMs: number) {
-        await cloudwatchClient.send(new PutMetricDataCommand({
-            Namespace: this.namespace,
-            MetricData: [
-                {
-                    MetricName: 'ResponseTime',
-                    Value: duracionMs,
-                    Unit: 'Milliseconds',
-                    Dimensions: [
-                        { Name: 'Route', Value: ruta },
-                        { Name: 'Environment', Value: this.environment }
-                    ],
-                    Timestamp: new Date()
-                }
-            ]
-        }));
+        console.log(`Enviando ResponseTime: ${duracionMs}ms para ruta: ${ruta}`);
+        
+        try {
+            await cloudwatchClient.send(new PutMetricDataCommand({
+                Namespace: this.namespace,
+                MetricData: [
+                    {
+                        MetricName: 'ResponseTime',
+                        Value: duracionMs,
+                        Unit: 'Milliseconds',
+                        Dimensions: [
+                            { Name: 'Route', Value: ruta },
+                            { Name: 'Environment', Value: this.environment }
+                        ],
+                        Timestamp: new Date()
+                    }
+                ]
+            }));
+            
+            console.log(`ResponseTime enviada exitosamente a CloudWatch`);
+        } catch (error) {
+            console.error(`Error al enviar ResponseTime:`, error);
+            throw error;
+        }
     }
 
     private obtenerRangoStatus(statusCode: number): string {
